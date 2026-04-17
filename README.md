@@ -1,5 +1,7 @@
 # Semgrep MCP Marketplace
 
+INTERNAL DEMO ONLY. 
+
 This repo is where the Semgrep [Plugin Marketplace](https://code.claude.com/docs/en/plugin-marketplaces) (`semgrep`) and the Semgrep [Plugin](https://code.claude.com/docs/en/plugins) (`semgrep-plugin@semgrep`) live.
 
 To use the Semgrep plugin:
