@@ -9,7 +9,7 @@ To use the Semgrep plugin:
     ```
 1. Add the Semgrep marketplace by running the following command in Claude:
     ```
-    /plugin marketplace add semgrep/mcp-marketplace
+    /plugin marketplace add tef-semgrep/mcp-marketplace
     ```
 1. Install the plugin from the marketplace:
     ```
