@@ -195,7 +195,7 @@ def run_scan(url, options, trace, app_token):
             if arg != "supply-chain":
                 config["rule"] = Path(arg).read_text()
             else:
-                config["rule"] = arg
+                config["config"] = arg
         else:
             config[name] = True
 
