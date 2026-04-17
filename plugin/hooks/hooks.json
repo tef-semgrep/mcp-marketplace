@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "SEMGREP_FRAGMENT_URL=https://mcp-dev.semgrep.ai/fragment ${CLAUDE_PLUGIN_ROOT}/scripts/run-semgrep.py scan"
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/semgrep-remote.py scan"
           }
         ]
       }
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/login.py",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/semgrep-remote.py login",
             "async": true,
             "timeout": 180
           }
