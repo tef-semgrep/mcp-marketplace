@@ -50,6 +50,8 @@ def parse_args(argv):
             if arg == "config":
                 arg = args.pop(0)
                 options.append(("config", arg))
+            elif arg == "local":
+                pass # seen elsewhere
             else:
                 options.append((arg, True))
         else:
@@ -185,17 +187,18 @@ def run_scan(url, options, trace, app_token):
     if app_token:
         auth = SemgrepAppToken(app_token)
 
-    config = {}
+    config = {"config":[]}
     files = []
+    rules = []
 
     for name, arg in options:
         if name is None:
             files.append(arg)
         elif name == "config":
-            if arg != "supply-chain":
-                config["rule"] = Path(arg).read_text()
+            if Path(arg).exists():
+                rules.append(arg)
             else:
-                config["config"] = arg
+                config["config"].append(arg)
         else:
             config[name] = True
 
@@ -203,11 +206,13 @@ def run_scan(url, options, trace, app_token):
         config["app_token"] = str(app_token)
 
     scan_files = load_files(Path.cwd(), files)
+    scan_rules = load_files(Path.cwd(), rules)
 
     scan_args = {
         "command": {
             "name": "scan",
             "files": scan_files,
+            "rules": scan_rules,
             "config": config,
             "trace": trace,
         }
@@ -302,7 +307,11 @@ def run_login(semgrep_url, options, environ):
 
 def main(argv, environ):
     remote_url = f"https://scanner.semgrep.ai/api/run"
+    local_url = f"http://localhost:8000/api/run"
     scan_url = environ.get("SEMGREP_SCANNER_URL", remote_url)
+
+    if "--local" in argv:
+        scan_url = local_url
 
     semgrep_url = environ.get("SEMGREP_URL", "https://semgrep.dev")
 
@@ -321,6 +330,9 @@ def main(argv, environ):
 
     if subcommand == "login":
         force = ("force", True) in options
+        check = ("check", True) in options
+        if app_token and check:
+            return 0
         if app_token and not force:
             print("error, already logged in", file=sys.stderr)
             return -1

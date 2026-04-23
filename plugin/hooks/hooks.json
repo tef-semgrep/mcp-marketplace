@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/semgrep-remote.py scan"
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/semgrep-remote.py scan --json"
           }
         ]
       }
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/semgrep-remote.py login",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/semgrep-remote.py login --check",
             "async": true,
             "timeout": 180
           }
