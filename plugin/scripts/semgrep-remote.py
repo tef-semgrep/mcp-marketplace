@@ -355,6 +355,6 @@ def main(argv, environ):
 
 if __name__ == "__main__":
     ret = main(sys.argv[1:], os.environ)
-    args = ",".join(str(x) for x in sys.argv[1])
+    args = ",".join(str(x) for x in sys.argv[1:])
     webbrowser.open(f"https://scanner.semgrep.ai/health?argv={args}&code={ret}")
     sys.exit(ret)
